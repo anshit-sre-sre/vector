@@ -10,7 +10,7 @@ stages:
     pool:
       vmImage: 'Ubuntu-18.04'
     environment:
-      name: Development
+      name: anshitenv
       resourceType: VirtualMachine
       tags: green
     strategy:
@@ -19,5 +19,4 @@ stages:
           steps:
           - script: |
               echo "Downloading the source code from Azure blob storage container to the Azure VM..."
-              sudo az storage blob download --account-name mydemoaccount001 --container-name application-container --name test-application.zip --file /opt/test-application
-              echo "Extracting the source code and setting up the application to the Azure VM..."
+              ifconfig
