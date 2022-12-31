@@ -1,19 +1,24 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 
-trigger:
-- master
-
-pool:
-  vmImage: ubuntu-latest
-
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+stages:
+- stage: Deploy
+  displayName: Deploy stage
+  jobs:
+  - job: Deploy
+    displayName: Deploy
+  - deployment: VMDeploy
+    displayName: dev
+    pool:
+      vmImage: 'Ubuntu-18.04'
+    environment:
+      name: Development
+      resourceType: VirtualMachine
+      tags: dev
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: |
+              echo "Downloading the source code from Azure blob storage container to the Azure VM..."
+              sudo az storage blob download --account-name mydemoaccount001 --container-name application-container --name test-application.zip --file /opt/test-application
+              echo "Extracting the source code and setting up the application to the Azure VM..."
+view rawazure-pipelines.yml hosted with ❤ by GitHub
