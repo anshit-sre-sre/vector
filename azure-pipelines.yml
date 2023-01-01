@@ -19,4 +19,3 @@ stages:
           steps:
           - script: |
               echo "Downloading the source code from Azure blob storage container to the Azure VM..."
-              ifconfig
